@@ -19,6 +19,12 @@ Visualization Manager:
   Global Options:
     Fixed Frame: body
     Background Color: 48; 48; 48
+  Tools:
+    - Class: rviz_default_plugins/Interact
+    - Class: rviz_default_plugins/MoveCamera
+    - Class: rviz_default_plugins/Select
+    - Class: rviz_default_plugins/FocusCamera
+    - Class: rviz_default_plugins/Measure
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
