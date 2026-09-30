@@ -1,0 +1,39 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 500 # Hz
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    # Placeholder position controller
+    forward_position_controller:
+      type: forward_command_controller/ForwardCommandController
+
+    wheel_velocity_controller:
+      type: forward_command_controller/ForwardCommandController
+
+forward_position_controller:
+  ros__parameters:
+    joints:
+      - fr_j0
+      - fr_j1
+      - fr_j2
+      - fl_j0
+      - fl_j1
+      - fl_j2
+      - rl_j0
+      - rl_j1
+      - rl_j2
+      - rr_j0
+      - rr_j1
+      - rr_j2
+    interface_name: position
+
+wheel_velocity_controller:
+  ros__parameters:
+    joints:
+      - fr_j3
+      - fl_j3
+      - rl_j3
+      - rr_j3
+    interface_name: velocity

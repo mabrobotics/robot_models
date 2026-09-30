@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+<robot name="hb50w" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- sim: none | mock | gazebo -->
+  <xacro:arg name="sim" default="none" />
+
+  <xacro:include filename="../common/_materials.xacro" />
+  <xacro:include filename="_hb50w_leg_macro.xacro" />
+
+  <!-- Root link, free-floating base -->
+  <link name="body">
+    <inertial>
+      <mass value="9.222" />
+      <inertia ixx="0.04644" ixy="0" ixz="0" iyy="0.10130" iyz="0" izz="0.13120" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="${hb50w_mesh_dir}/hb50w_body.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="silver" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 -0.002" />
+      <geometry>
+        <box size="0.196 0.152 0.124" />
+      </geometry>
+      <material name="invisible" />
+    </collision>
+    <collision>
+      <origin xyz="0 -0.064 0" rpy="0 1.570796 0" />
+      <geometry>
+        <cylinder length="0.33" radius="0.056" />
+      </geometry>
+      <material name="invisible" />
+    </collision>
+    <collision>
+      <origin xyz="0 0.064 0" rpy="0 1.570796 0" />
+      <geometry>
+        <cylinder length="0.33" radius="0.056" />
+      </geometry>
+      <material name="invisible" />
+    </collision>
+    <collision>
+      <origin xyz="0.09 0 0.057" />
+      <geometry>
+        <box size="0.048 0.128 0.048" />
+      </geometry>
+      <material name="invisible" />
+    </collision>
+  </link>
+
+  <!-- ================= FR (leg 0) ================= -->
+  <xacro:hb50w_leg
+    prefix="fr"
+    j0_xyz="0.1661 -0.064 0" j0_lower="-1.047198" j0_upper="1.570796"
+    l0_mesh="hb50w_l0_fr_rl.stl" l0_mass="1.536" l0_inertial_xyz="0.059079 0.004785 -0.000588"
+    l0_ixx="0.001492" l0_iyy="0.001701" l0_izz="0.001759"
+    j1_xyz="0.0585 -0.0425 0" j1_rpy="0 0 -1.570796" j1_lower="-1.570796" j1_upper="1.570796"
+    l1_mass="1.784" l1_inertial_xyz="0.055224 -0.015337 0.003302" l1_ixx="0.006461" l1_iyy="0.002438" l1_izz="0.007101"
+    l1_mesh="hb50w_l1_fr.stl"
+    l1_collision2_xyz="0.098 -0.134 0.013" l1_collision2_rpy="0.05 0 0"
+    j2_xyz="0.10015 -0.22 0" j2_rpy="2.792527 0 0" j2_lower="-2.705260" j2_upper="0"
+    l2_inertial_xyz="-0.001567 -0.190811 0.000848" l2_mesh="hb50w_l2_r.stl" l2_visual_rpy="3.141593 0 0"
+    l2_collision1_xyz="0 0.01 0.004" l2_collision1_rpy="1.2 0 0"
+    l2_collision2_xyz="0 -0.11 0.006" l2_collision2_rpy="1.699994 0.003670 0.010561"
+    l2_collision3_xyz="-0.0072 -0.22 0"
+    j3_xyz="0.0175 -0.22 0" wheel_material="red"
+  />
+
+  <!-- ================= FL (leg 1) ================= -->
+  <xacro:hb50w_leg
+    prefix="fl"
+    j0_xyz="0.1661 0.064 0" j0_lower="-1.570796" j0_upper="1.047198"
+    l0_mesh="hb50w_l0_fl_rr.stl" l0_mass="1.536" l0_inertial_xyz="0.059079 -0.004785 0.000588"
+    l0_ixx="0.001492" l0_iyy="0.001701" l0_izz="0.001759"
+    j1_xyz="0.0585 0.0425 0" j1_rpy="0 0 1.570796" j1_lower="-1.570796" j1_upper="1.570796"
+    l1_mass="1.784" l1_inertial_xyz="0.055224 0.015337 0.003302" l1_ixx="0.006461" l1_iyy="0.002438" l1_izz="0.007101"
+    l1_mesh="hb50w_l1_fl.stl" l1_visual_rpy="0 0 3.141593"
+    l1_collision2_xyz="0.098 0.134 0.013" l1_collision2_rpy="-0.05 0 0"
+    j2_xyz="0.10015 0.22 0" j2_rpy="-2.792527 0 0" j2_lower="0" j2_upper="2.705260"
+    l2_inertial_xyz="-0.001567 0.190811 0.000848" l2_mesh="hb50w_l2_l.stl" l2_visual_rpy="0 3.141593 0"
+    l2_collision1_xyz="0 -0.01 0.004" l2_collision1_rpy="-1.2 0 0"
+    l2_collision2_xyz="0 0.11 0.006" l2_collision2_rpy="-1.699994 0.003670 -0.010561"
+    l2_collision3_xyz="-0.0072 0.22 0"
+    j3_xyz="0.0175 0.22 0" wheel_material="black"
+  />
+
+  <!-- ================= RL (leg 2) ================= -->
+  <xacro:hb50w_leg
+    prefix="rl"
+    j0_xyz="-0.1645 0.064 0" j0_rpy="0 0 -3.141593" j0_lower="-1.047198" j0_upper="1.570796"
+    l0_mesh="hb50w_l0_fr_rl.stl" l0_mass="1.525" l0_inertial_xyz="0.058684 0.004487 0.000600"
+    l0_ixx="0.001474" l0_iyy="0.001666" l0_izz="0.001711"
+    j1_xyz="0.0585 -0.0425 0" j1_rpy="0 0 -1.570796" j1_lower="-3.141593" j1_upper="1.570796"
+    l1_mass="1.753" l1_inertial_xyz="0.055591 0.019865 0.002679" l1_ixx="0.006329" l1_iyy="0.002338" l1_izz="0.006986"
+    l1_mesh="hb50w_l1_rl.stl" l1_visual_rpy="0 0 3.141593"
+    l1_collision2_xyz="0.098 0.134 0.013" l1_collision2_rpy="-0.05 0 0"
+    j2_xyz="0.10015 0.22 0" j2_rpy="-2.792527 0 0" j2_lower="0" j2_upper="2.705260"
+    l2_inertial_xyz="-0.001567 0.190811 0.000848" l2_mesh="hb50w_l2_l.stl" l2_visual_rpy="0 3.141593 0"
+    l2_collision1_xyz="0 -0.01 0.004" l2_collision1_rpy="-1.2 0 0"
+    l2_collision2_xyz="0 0.11 0.006" l2_collision2_rpy="-1.699994 0.003670 -0.010561"
+    l2_collision3_xyz="-0.0072 0.22 0"
+    j3_xyz="0.0175 0.22 0" wheel_material="black"
+  />
+
+  <!-- ================= RR (leg 3) ================= -->
+  <xacro:hb50w_leg
+    prefix="rr"
+    j0_xyz="-0.1645 -0.064 0" j0_rpy="0 0 -3.141593" j0_lower="-1.570796" j0_upper="1.047198"
+    l0_mesh="hb50w_l0_fl_rr.stl" l0_mass="1.525" l0_inertial_xyz="0.058684 -0.004487 -0.000600"
+    l0_ixx="0.001474" l0_iyy="0.001666" l0_izz="0.001711"
+    j1_xyz="0.0585 0.0425 0" j1_rpy="0 0 1.570796" j1_lower="-1.570796" j1_upper="3.141593"
+    l1_mass="1.753" l1_inertial_xyz="0.055591 -0.019865 0.002679" l1_ixx="0.006329" l1_iyy="0.002338" l1_izz="0.006986"
+    l1_mesh="hb50w_l1_rr.stl"
+    l1_collision2_xyz="0.098 -0.134 0.013" l1_collision2_rpy="0.05 0 0"
+    j2_xyz="0.10015 -0.22 0" j2_rpy="2.792527 0 0" j2_lower="-2.705260" j2_upper="0"
+    l2_inertial_xyz="-0.001567 -0.190811 0.000848" l2_mesh="hb50w_l2_r.stl" l2_visual_rpy="3.141593 0 0"
+    l2_collision1_xyz="0 0.01 0.004" l2_collision1_rpy="1.2 0 0"
+    l2_collision2_xyz="0 -0.11 0.006" l2_collision2_rpy="1.699994 0.003670 0.010561"
+    l2_collision3_xyz="-0.0072 -0.22 0"
+    j3_xyz="0.0175 -0.22 0" wheel_material="black"
+  />
+
+  <xacro:if value="${'$(arg sim)' != 'none'}">
+    <xacro:include filename="../common/_ros2_control.xacro" />
+    <xacro:ros2_control_block name="hb50w" sim="$(arg sim)" wheels="true" />
+  </xacro:if>
+
+  <xacro:if value="${'$(arg sim)' == 'gazebo'}">
+    <xacro:include filename="../common/_gazebo.xacro" />
+    <xacro:gazebo_block robot="hb50w" imu_xyz="0.069301 0 0" />
+  </xacro:if>
+
+</robot>

@@ -1,0 +1,34 @@
+### Dirs
+build/
+install/
+log/
+.cache/
+.claude/
+
+### CMake ###
+CMakeLists.txt.user
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+Testing
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+_deps
+CMakeUserPresets.json
+*-prefix/
+ament_cmake_*/
+CTestConfiguration.ini
+CTestCustom.cmake
+
+MUJOCO_LOG.TXT
+
+### Python ###
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/

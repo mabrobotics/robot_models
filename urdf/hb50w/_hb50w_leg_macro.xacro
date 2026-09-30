@@ -1,0 +1,171 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:property name="hb50w_mesh_dir" value="package://robot_models/meshes/hb50w/visual" />
+
+  <!-- One leg: j0 hip abduction, j1 hip flexion, j2 knee, j3 wheel. -->
+  <xacro:macro name="hb50w_leg" params="
+      prefix
+      j0_xyz j0_rpy:='0 0 0' j0_lower j0_upper
+      l0_mesh l0_mass l0_inertial_xyz l0_ixx l0_iyy l0_izz
+      j1_xyz j1_rpy j1_lower j1_upper
+      l1_mass l1_inertial_xyz l1_ixx l1_iyy l1_izz l1_mesh l1_visual_rpy:='0 0 0'
+      l1_collision2_xyz l1_collision2_rpy
+      j2_xyz j2_rpy j2_lower j2_upper
+      l2_inertial_xyz l2_mesh l2_visual_rpy
+      l2_collision1_xyz l2_collision1_rpy
+      l2_collision2_xyz l2_collision2_rpy
+      l2_collision3_xyz
+      j3_xyz wheel_material
+    ">
+
+    <!-- L0 : hip abduction link -->
+    <link name="${prefix}_l0">
+      <inertial>
+        <origin xyz="${l0_inertial_xyz}" />
+        <mass value="${l0_mass}" />
+        <inertia ixx="${l0_ixx}" ixy="0" ixz="0" iyy="${l0_iyy}" iyz="0" izz="${l0_izz}" />
+      </inertial>
+      <visual>
+        <geometry>
+          <mesh filename="${hb50w_mesh_dir}/${l0_mesh}" scale="0.001 0.001 0.001" />
+        </geometry>
+        <material name="silver" />
+      </visual>
+      <collision>
+        <origin xyz="0.0585 0 0" rpy="1.570796 0 0" />
+        <geometry>
+          <cylinder length="0.084" radius="0.051" />
+        </geometry>
+        <material name="invisible" />
+      </collision>
+    </link>
+
+    <!-- L1 : upper leg -->
+    <link name="${prefix}_l1">
+      <inertial>
+        <origin xyz="${l1_inertial_xyz}" />
+        <mass value="${l1_mass}" />
+        <inertia ixx="${l1_ixx}" ixy="0" ixz="0" iyy="${l1_iyy}" iyz="0" izz="${l1_izz}" />
+      </inertial>
+      <visual>
+        <origin rpy="${l1_visual_rpy}" />
+        <geometry>
+          <mesh filename="${hb50w_mesh_dir}/${l1_mesh}" scale="0.001 0.001 0.001" />
+        </geometry>
+        <material name="silver" />
+      </visual>
+      <collision>
+        <origin xyz="0.057 0 0" rpy="0 1.570796 0" />
+        <geometry>
+          <cylinder length="0.11" radius="0.051" />
+        </geometry>
+        <material name="invisible" />
+      </collision>
+      <collision>
+        <origin xyz="${l1_collision2_xyz}" rpy="${l1_collision2_rpy}" />
+        <geometry>
+          <box size="0.028 0.22 0.052" />
+        </geometry>
+        <material name="invisible" />
+      </collision>
+    </link>
+
+    <!-- L2 : lower leg -->
+    <link name="${prefix}_l2">
+      <inertial>
+        <origin xyz="${l2_inertial_xyz}" />
+        <mass value="0.526" />
+        <inertia ixx="0.002319" ixy="0" ixz="0" iyy="0.0001582" iyz="0" izz="0.002306" />
+      </inertial>
+      <visual>
+        <origin rpy="${l2_visual_rpy}" />
+        <geometry>
+          <mesh filename="${hb50w_mesh_dir}/${l2_mesh}" scale="0.001 0.001 0.001" />
+        </geometry>
+        <material name="silver" />
+      </visual>
+      <collision>
+        <origin xyz="${l2_collision1_xyz}" rpy="${l2_collision1_rpy}" />
+        <geometry>
+          <cylinder length="0.06" radius="0.012" />
+        </geometry>
+        <material name="invisible" />
+      </collision>
+      <collision>
+        <origin xyz="${l2_collision2_xyz}" rpy="${l2_collision2_rpy}" />
+        <geometry>
+          <cylinder length="0.196" radius="0.016" />
+        </geometry>
+        <material name="invisible" />
+      </collision>
+      <collision>
+        <origin xyz="${l2_collision3_xyz}" rpy="0 1.570796 0" />
+        <geometry>
+          <cylinder length="0.05" radius="0.028" />
+        </geometry>
+        <material name="invisible" />
+      </collision>
+    </link>
+
+    <!-- Wheel -->
+    <link name="${prefix}_w">
+      <inertial>
+        <origin xyz="0.006794 0 0" />
+        <mass value="0.235" />
+        <inertia ixx="0.0007179" ixy="0" ixz="0" iyy="0.0003692" iyz="0" izz="0.0003692" />
+      </inertial>
+      <visual>
+        <geometry>
+          <mesh filename="${hb50w_mesh_dir}/hb50w_wheel.stl" scale="0.001 0.001 0.001" />
+        </geometry>
+        <material name="${wheel_material}" />
+      </visual>
+      <collision>
+        <origin xyz="0.009 0 0" rpy="0 1.570796 0" />
+        <geometry>
+          <cylinder length="0.024" radius="0.0679" />
+        </geometry>
+        <material name="invisible" />
+      </collision>
+    </link>
+
+    <!-- Joints -->
+    <joint name="${prefix}_j0" type="revolute">
+      <parent link="body" />
+      <child link="${prefix}_l0" />
+      <origin xyz="${j0_xyz}" rpy="${j0_rpy}" />
+      <axis xyz="1 0 0" />
+      <limit effort="16.0" lower="${j0_lower}" upper="${j0_upper}" velocity="25.0" />
+      <dynamics damping="0.1" friction="0.48" />
+    </joint>
+
+    <joint name="${prefix}_j1" type="revolute">
+      <parent link="${prefix}_l0" />
+      <child link="${prefix}_l1" />
+      <origin xyz="${j1_xyz}" rpy="${j1_rpy}" />
+      <axis xyz="1 0 0" />
+      <limit effort="16.0" lower="${j1_lower}" upper="${j1_upper}" velocity="25.0" />
+      <dynamics damping="0.1" friction="0.48" />
+    </joint>
+
+    <joint name="${prefix}_j2" type="revolute">
+      <parent link="${prefix}_l1" />
+      <child link="${prefix}_l2" />
+      <origin xyz="${j2_xyz}" rpy="${j2_rpy}" />
+      <axis xyz="1 0 0" />
+      <limit effort="16.0" lower="${j2_lower}" upper="${j2_upper}" velocity="25.0" />
+      <dynamics damping="0.1" friction="0.48" />
+    </joint>
+
+    <joint name="${prefix}_j3" type="continuous">
+      <parent link="${prefix}_l2" />
+      <child link="${prefix}_w" />
+      <origin xyz="${j3_xyz}" />
+      <axis xyz="1 0 0" />
+      <limit effort="7.0" velocity="25.0" />
+      <dynamics damping="0.1" friction="0.48" />
+    </joint>
+
+  </xacro:macro>
+</robot>

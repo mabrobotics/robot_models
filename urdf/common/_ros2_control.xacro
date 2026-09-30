@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="joint_interface" params="joint cmd:=position">
+    <joint name="${joint}">
+      <command_interface name="${cmd}" />
+      <state_interface name="position" />
+      <state_interface name="velocity" />
+      <state_interface name="effort" />
+    </joint>
+  </xacro:macro>
+
+  <!-- sim: mock | gazebo; wheels: add velocity-commanded j3 joints -->
+  <xacro:macro name="ros2_control_block" params="name sim wheels:=false">
+
+    <ros2_control name="${name}_system" type="system">
+      <hardware>
+        <xacro:if value="${sim == 'mock'}">
+          <plugin>mock_components/GenericSystem</plugin>
+        </xacro:if>
+        <xacro:if value="${sim == 'gazebo'}">
+          <plugin>gz_ros2_control/GazeboSimSystem</plugin>
+        </xacro:if>
+      </hardware>
+
+      <xacro:joint_interface joint="fr_j0" />
+      <xacro:joint_interface joint="fr_j1" />
+      <xacro:joint_interface joint="fr_j2" />
+      <xacro:joint_interface joint="fl_j0" />
+      <xacro:joint_interface joint="fl_j1" />
+      <xacro:joint_interface joint="fl_j2" />
+      <xacro:joint_interface joint="rl_j0" />
+      <xacro:joint_interface joint="rl_j1" />
+      <xacro:joint_interface joint="rl_j2" />
+      <xacro:joint_interface joint="rr_j0" />
+      <xacro:joint_interface joint="rr_j1" />
+      <xacro:joint_interface joint="rr_j2" />
+      <xacro:if value="${wheels}">
+        <xacro:joint_interface joint="fr_j3" cmd="velocity" />
+        <xacro:joint_interface joint="fl_j3" cmd="velocity" />
+        <xacro:joint_interface joint="rl_j3" cmd="velocity" />
+        <xacro:joint_interface joint="rr_j3" cmd="velocity" />
+      </xacro:if>
+    </ros2_control>
+
+  </xacro:macro>
+</robot>

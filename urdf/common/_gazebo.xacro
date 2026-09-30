@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Resolved at include time relative to this file; no $(find), works from source and install -->
+  <xacro:property name="config_dir" value="${xacro.abs_filename('../../config')}" lazy_eval="false" />
+
+  <!-- imu_xyz: MJCF imu site pos -->
+  <xacro:macro name="gazebo_block" params="robot imu_xyz">
+
+    <gazebo>
+      <plugin filename="gz-sim-imu-system" name="gz::sim::systems::Imu" />
+      <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
+        <parameters>${config_dir}/${robot}/ros2_control.yaml</parameters>
+      </plugin>
+    </gazebo>
+
+    <link name="imu_link" />
+    <joint name="imu_joint" type="fixed">
+      <parent link="body" />
+      <child link="imu_link" />
+      <origin xyz="${imu_xyz}" rpy="0 0 0" />
+    </joint>
+
+    <gazebo reference="imu_link">
+      <sensor name="imu_sensor" type="imu">
+        <always_on>true</always_on>
+        <update_rate>200</update_rate>
+        <topic>imu</topic>
+        <gz_frame_id>imu_link</gz_frame_id>
+      </sensor>
+    </gazebo>
+
+  </xacro:macro>
+</robot>

@@ -1,0 +1,152 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:property name="hb50_mesh_dir" value="package://robot_models/meshes/hb50/visual" />
+
+  <!-- One leg: j0 hip abduction, j1 hip flexion, j2 knee, fixed foot. -->
+  <xacro:macro name="hb50_leg" params="
+      prefix
+      j0_xyz j0_rpy:='0 0 0' j0_lower j0_upper
+      l0_mesh l0_mass l0_ixx l0_iyy l0_izz
+      l0_inertial_xyz l0_visual_rpy:='0 0 0'
+      j1_xyz j1_rpy j1_lower j1_upper
+      l1_inertial_xyz l1_ixx l1_iyy l1_izz l1_visual_rpy l1_mesh
+      l1_collision2_xyz l1_collision2_rpy
+      j2_xyz j2_rpy j2_lower j2_upper
+      l2_inertial_xyz l2_visual_rpy l2_mesh
+      l2_collision1_xyz l2_collision1_rpy
+      l2_collision2_xyz l2_collision2_rpy
+      jFoot_xyz foot_material
+    ">
+
+    <!-- L0 : hip abduction link -->
+    <link name="${prefix}_l0">
+      <inertial>
+        <origin xyz="${l0_inertial_xyz}" />
+        <mass value="${l0_mass}" />
+        <inertia ixx="${l0_ixx}" ixy="0" ixz="0" iyy="${l0_iyy}" iyz="0" izz="${l0_izz}" />
+      </inertial>
+      <visual>
+        <origin rpy="${l0_visual_rpy}" />
+        <geometry>
+          <mesh filename="${hb50_mesh_dir}/${l0_mesh}" scale="0.001 0.001 0.001" />
+        </geometry>
+        <material name="silver" />
+      </visual>
+    </link>
+
+    <!-- L1 : upper leg -->
+    <link name="${prefix}_l1">
+      <inertial>
+        <origin xyz="${l1_inertial_xyz}" />
+        <mass value="1.784" />
+        <inertia ixx="${l1_ixx}" ixy="0" ixz="0" iyy="${l1_iyy}" iyz="0" izz="${l1_izz}" />
+      </inertial>
+      <visual>
+        <origin rpy="${l1_visual_rpy}" />
+        <geometry>
+          <mesh filename="${hb50_mesh_dir}/${l1_mesh}" scale="0.001 0.001 0.001" />
+        </geometry>
+        <material name="silver" />
+      </visual>
+      <collision>
+        <origin xyz="0.066 0 0" rpy="0 1.570796 0" />
+        <geometry>
+          <cylinder length="0.132" radius="0.051" />
+        </geometry>
+        <material name="invisible" />
+      </collision>
+      <collision>
+        <origin xyz="${l1_collision2_xyz}" rpy="${l1_collision2_rpy}" />
+        <geometry>
+          <box size="0.028 0.22 0.052" />
+        </geometry>
+        <material name="invisible" />
+      </collision>
+    </link>
+
+    <!-- L2 : lower leg / shin -->
+    <link name="${prefix}_l2">
+      <inertial>
+        <origin xyz="${l2_inertial_xyz}" />
+        <mass value="0.141" />
+        <inertia ixx="0.001234" ixy="0" ixz="0" iyy="0.000021630" iyz="0" izz="0.001225" />
+      </inertial>
+      <visual>
+        <origin rpy="${l2_visual_rpy}" />
+        <geometry>
+          <mesh filename="${hb50_mesh_dir}/${l2_mesh}" scale="0.001 0.001 0.001" />
+        </geometry>
+        <material name="silver" />
+      </visual>
+      <collision>
+        <origin xyz="${l2_collision1_xyz}" rpy="${l2_collision1_rpy}" />
+        <geometry>
+          <cylinder length="0.06" radius="0.012" />
+        </geometry>
+        <material name="invisible" />
+      </collision>
+      <collision>
+        <origin xyz="${l2_collision2_xyz}" rpy="${l2_collision2_rpy}" />
+        <geometry>
+          <cylinder length="0.196" radius="0.016" />
+        </geometry>
+        <material name="invisible" />
+      </collision>
+    </link>
+
+    <!-- Foot : massless -->
+    <link name="${prefix}_foot">
+      <inertial>
+        <mass value="0" />
+        <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0" />
+      </inertial>
+      <visual>
+        <geometry>
+          <sphere radius="0.021" />
+        </geometry>
+        <material name="${foot_material}" />
+      </visual>
+      <collision>
+        <geometry>
+          <sphere radius="0.021" />
+        </geometry>
+      </collision>
+    </link>
+
+    <!-- Joints -->
+    <joint name="${prefix}_j0" type="revolute">
+      <parent link="body" />
+      <child link="${prefix}_l0" />
+      <origin xyz="${j0_xyz}" rpy="${j0_rpy}" />
+      <axis xyz="1 0 0" />
+      <limit effort="16.0" lower="${j0_lower}" upper="${j0_upper}" velocity="25.0" />
+      <dynamics damping="0.1" friction="0.48" />
+    </joint>
+
+    <joint name="${prefix}_j1" type="revolute">
+      <parent link="${prefix}_l0" />
+      <child link="${prefix}_l1" />
+      <origin xyz="${j1_xyz}" rpy="${j1_rpy}" />
+      <axis xyz="1 0 0" />
+      <limit effort="16.0" lower="${j1_lower}" upper="${j1_upper}" velocity="25.0" />
+      <dynamics damping="0.1" friction="0.48" />
+    </joint>
+
+    <joint name="${prefix}_j2" type="revolute">
+      <parent link="${prefix}_l1" />
+      <child link="${prefix}_l2" />
+      <origin xyz="${j2_xyz}" rpy="${j2_rpy}" />
+      <axis xyz="1 0 0" />
+      <limit effort="16.0" lower="${j2_lower}" upper="${j2_upper}" velocity="25.0" />
+      <dynamics damping="0.1" friction="0.48" />
+    </joint>
+
+    <joint name="${prefix}_jFoot" type="fixed">
+      <parent link="${prefix}_l2" />
+      <child link="${prefix}_foot" />
+      <origin xyz="${jFoot_xyz}" />
+    </joint>
+
+  </xacro:macro>
+</robot>
