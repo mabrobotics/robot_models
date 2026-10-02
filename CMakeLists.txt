@@ -28,6 +28,8 @@ if(BUILD_TESTING)
   ament_add_pytest_test(test_xacro_validity test/test_xacro_validity.py)
   ament_add_pytest_test(test_urdf_matches_mjcf test/test_urdf_matches_mjcf.py)
   ament_add_pytest_test(test_urdf_matches_rbdl test/test_urdf_matches_rbdl.py)
+  ament_add_pytest_test(test_mujoco_scenes test/test_mujoco_scenes.py)
+  ament_add_pytest_test(test_mujoco_layout test/test_mujoco_layout.py)
 endif()
 
 ament_package()

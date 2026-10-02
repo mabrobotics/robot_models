@@ -9,16 +9,10 @@ import os
 from isaaclab.actuators import ImplicitActuatorCfg
 from isaaclab.assets import ArticulationCfg
 import isaaclab.sim as sim_utils
+from isaaclab_physx.sim.schemas import PhysxArticulationCfg, PhysxRigidBodyCfg
 
 _THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 HB50_USD_PATH = os.path.join(os.path.dirname(_THIS_DIR), 'hb50.usd')
-
-_JOINT_NAMES = [
-    'fr_j0', 'fr_j1', 'fr_j2',
-    'fl_j0', 'fl_j1', 'fl_j2',
-    'rl_j0', 'rl_j1', 'rl_j2',
-    'rr_j0', 'rr_j1', 'rr_j2',
-]
 
 # TODO: real stand pose
 _DEFAULT_JOINT_POS = {
@@ -31,12 +25,12 @@ _DEFAULT_JOINT_POS = {
 HB50_CFG = ArticulationCfg(
     spawn=sim_utils.UsdFileCfg(
         usd_path=HB50_USD_PATH,
-        rigid_props=sim_utils.RigidBodyPropertiesCfg(
+        rigid_props=PhysxRigidBodyCfg(
             disable_gravity=False,
             retain_accelerations=False,
             max_depenetration_velocity=1.0,
         ),
-        articulation_props=sim_utils.ArticulationRootPropertiesCfg(
+        articulation_props=PhysxArticulationCfg(
             enabled_self_collisions=False,
             solver_position_iteration_count=4,
             solver_velocity_iteration_count=0,
@@ -49,11 +43,11 @@ HB50_CFG = ArticulationCfg(
     actuators={
         'legs': ImplicitActuatorCfg(
             joint_names_expr=['.*_j[0-2]'],
-            effort_limit=16.0,
-            velocity_limit=25.0,
-            armature=0.013122,
-            stiffness=40.0,  # TODO: tune
-            damping=2.0,  # TODO: tune
+            joint_effort_limit=24.0,
+            joint_velocity_limit=20.0,
+            armature=0.0094,
+            stiffness=80.0,
+            damping=3.0,
         ),
     },
 )

@@ -1,0 +1,4 @@
+<mujoco model="hb40 room scene">
+  <include file="hb40.xml"/>
+  <include file="../scenes/room.xml"/>
+</mujoco>

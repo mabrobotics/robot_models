@@ -50,7 +50,6 @@
         <geometry>
           <cylinder length="0.11" radius="0.05" />
         </geometry>
-        <material name="invisible" />
       </collision>
     </link>
 
@@ -72,23 +71,17 @@
         <geometry>
           <cylinder length="0.0625" radius="0.01" />
         </geometry>
-        <material name="invisible" />
       </collision>
       <collision>
         <origin xyz="${l2_collision2_xyz}" rpy="${l2_collision2_rpy}" />
         <geometry>
           <cylinder length="0.2" radius="0.015" />
         </geometry>
-        <material name="invisible" />
       </collision>
     </link>
 
     <!-- Foot : massless -->
     <link name="${prefix}_foot">
-      <inertial>
-        <mass value="0" />
-        <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0" />
-      </inertial>
       <visual>
         <geometry>
           <sphere radius="0.021" />
@@ -97,7 +90,7 @@
       </visual>
       <collision>
         <geometry>
-          <sphere radius="0.02" />
+          <sphere radius="0.021" />
         </geometry>
       </collision>
     </link>
@@ -108,8 +101,8 @@
       <child link="${prefix}_l0" />
       <origin xyz="${j0_xyz}" rpy="${j0_rpy}" />
       <axis xyz="1 0 0" />
-      <limit effort="27.0" lower="-1.570796" upper="1.570796" velocity="25.0" />
-      <dynamics damping="0.1" friction="0.48" />
+      <limit effort="15.0" lower="-1.570796" upper="1.570796" velocity="59.0" />
+      <dynamics damping="0.1" friction="0.51" />
     </joint>
 
     <joint name="${prefix}_j1" type="revolute">
@@ -117,8 +110,8 @@
       <child link="${prefix}_l1" />
       <origin xyz="${j1_xyz}" rpy="${j1_rpy}" />
       <axis xyz="1 0 0" />
-      <limit effort="27.0" lower="-1.570796" upper="1.570796" velocity="25.0" />
-      <dynamics damping="0.1" friction="0.48" />
+      <limit effort="15.0" lower="-1.570796" upper="1.570796" velocity="59.0" />
+      <dynamics damping="0.1" friction="0.51" />
     </joint>
 
     <joint name="${prefix}_j2" type="revolute">
@@ -126,8 +119,8 @@
       <child link="${prefix}_l2" />
       <origin xyz="${j2_xyz}" rpy="${j2_rpy}" />
       <axis xyz="1 0 0" />
-      <limit effort="27.0" lower="${j2_lower}" upper="${j2_upper}" velocity="25.0" />
-      <dynamics damping="0.1" friction="0.48" />
+      <limit effort="15.0" lower="${j2_lower}" upper="${j2_upper}" velocity="59.0" />
+      <dynamics damping="0.1" friction="0.51" />
     </joint>
 
     <joint name="${prefix}_jFoot" type="fixed">

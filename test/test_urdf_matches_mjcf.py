@@ -10,7 +10,7 @@ import pytest
 PKG_ROOT = Path(__file__).resolve().parent.parent
 ROBOTS = ['hb50', 'hb50w', 'hb40']
 TOL = 1e-4
-ROT_TOL = 1e-5  # rad
+ROT_TOL = 1e-5
 
 
 def vec(s, n=3):
@@ -30,7 +30,7 @@ def qaxis(axis, a):
     return q
 
 
-def rpy2q(rpy):  # URDF: Rz * Ry * Rx
+def rpy2q(rpy):
     return qmul(qaxis(2, rpy[2]), qmul(qaxis(1, rpy[1]), qaxis(0, rpy[0])))
 
 
@@ -39,7 +39,7 @@ def mj_rot(el):
         q = vec(el.get('quat'), 4)
         n = math.sqrt(sum(v * v for v in q))
         return [v / n for v in q]
-    if el.get('euler'):  # MuJoCo default eulerseq "xyz" (intrinsic): Rx * Ry * Rz
+    if el.get('euler'):
         a, b, c = vec(el.get('euler'))
         return qmul(qaxis(0, a), qmul(qaxis(1, b), qaxis(2, c)))
     return [1.0, 0.0, 0.0, 0.0]
@@ -71,6 +71,36 @@ def same_rot(a, b):
     return abs(sum(x * y for x, y in zip(a, b))) >= math.cos(ROT_TOL / 2)
 
 
+def resolver(mjcf):
+    """Return attrs(el): el's attributes with its default class (class/childclass) applied."""
+    table = {}
+
+    def rec(node, name, inherited):
+        own = {t: dict(a) for t, a in inherited.items()}
+        for c in node:
+            if c.tag != 'default':
+                own.setdefault(c.tag, {}).update(c.attrib)
+        table[name] = own
+        for c in node:
+            if c.tag == 'default':
+                rec(c, c.get('class'), own)
+
+    if mjcf.find('default') is not None:
+        rec(mjcf.find('default'), 'main', {})
+    parent = {c: p for p in mjcf.iter() for c in p}
+
+    def attrs(el):
+        cls, p = el.get('class'), el
+        while cls is None and p in parent:
+            p = parent[p]
+            cls = p.get('childclass') if p.tag == 'body' else None
+        a = dict(table.get(cls or 'main', {}).get(el.tag, {}))
+        a.update(el.attrib)
+        return a
+
+    return attrs
+
+
 def compare(urdf, mjcf):
     bad = []
     links = {link.get('name'): link for link in urdf.findall('link')}
@@ -78,9 +108,10 @@ def compare(urdf, mjcf):
     by_child = {j.find('child').get('link'): j for j in joints}
     colors = {m.get('name'): vec(m.find('color').get('rgba'), 4)
               for m in urdf.findall('material') if m.find('color') is not None}
-    meshes = {m.get('name'): m.get('file').split('/')[-1] for m in mjcf.iter('mesh')}
-    motors = {a.get('joint'): a for a in mjcf.iter('motor')}
-    djoint = mjcf.find('default').find('joint')
+    meshes = {m.get('name'): m.get('file').split('/')[-1] for m in mjcf.find('asset').iter('mesh')}
+    materials = {m.get('name'): m.get('rgba') for m in mjcf.find('asset').iter('material')}
+    attrs = resolver(mjcf)
+    motors = {a.get('joint'): attrs(a) for a in mjcf.find('actuator').iter('motor')}
 
     def origin(el):
         o = el.find('origin') if el is not None else None
@@ -88,7 +119,7 @@ def compare(urdf, mjcf):
             return [0.0] * 3, [1.0, 0.0, 0.0, 0.0]
         return vec(o.get('xyz')), rpy2q(vec(o.get('rpy')))
 
-    def geoms(link, kind):  # link + fixed children, in link frame
+    def geoms(link, kind):
         out = []
 
         def rec(name, p, q):
@@ -115,7 +146,7 @@ def compare(urdf, mjcf):
         return 'mesh', s.get('filename').split('/')[-1]
 
     def effort(mj):
-        a = motors[mj.get('name')]
+        a = motors[mj['name']]
         gear = float(a.get('gear', '1').split()[0])
         lims = []
         if mj.get('actuatorfrcrange'):
@@ -146,7 +177,8 @@ def compare(urdf, mjcf):
             bad.append(f'{n}: inertia')
 
         mj = b.find('joint')
-        if mj.get('type') != 'free':
+        if mj is not None:  # root body has a <freejoint>
+            mj = attrs(mj)
             j = by_child[n]
             jn = j.get('name')
             jp, jq = origin(j)
@@ -172,20 +204,18 @@ def compare(urdf, mjcf):
             elif lim is None or abs(float(lim.get('effort')) - effort(mj)) > TOL:
                 bad.append(f'{jn}: effort')
             dyn = j.find('dynamics')
-            dyn_ref = [float(djoint.get('damping')), float(djoint.get('frictionloss'))]
+            dyn_ref = [float(mj.get('damping', 0)), float(mj.get('frictionloss', 0))]
             if dyn is None or not close([float(dyn.get('damping')), float(dyn.get('friction'))],
                                         dyn_ref):
                 bad.append(f'{jn}: dynamics')
 
         mvis, mcol = [], []
-        for gm in b.findall('geom'):
+        for gm in map(attrs, b.findall('geom')):
             typ = gm.get('type', 'sphere')
-            size = meshes[gm.get('mesh')] if typ == 'mesh' else vec(gm.get('size'), 1)
-            item = (typ, size, vec(gm.get('pos')), mj_rot(gm), vec(gm.get('rgba'), 4))
-            if gm.get('contype') == '0' or gm.get('group') == '2':
-                mvis.append(item)
-            if gm.get('contype') != '0':
-                mcol.append(item)
+            size = meshes.get(gm.get('mesh')) if typ == 'mesh' else vec(gm.get('size'), 1)
+            rgba = materials[gm['material']] if 'material' in gm else gm.get('rgba')
+            item = (typ, size, vec(gm.get('pos')), mj_rot(gm), vec(rgba, 4))
+            (mvis if gm.get('contype') == '0' else mcol).append(item)
         for kind, ms in (('visual', mvis), ('collision', mcol)):
             us = geoms(n, kind)
             if len(us) != len(ms):
@@ -225,14 +255,12 @@ def compare(urdf, mjcf):
             if sn.get(k) is not None and sn.get(k) not in names:
                 bad.append(f"sensor {sn.get('name')}: no {k} {sn.get(k)}")
     sensor_names = {sn.get('name') for sn in sensors}
-    for mj in mjcf.find('worldbody').iter('joint'):
-        jn = mj.get('name')
-        if mj.get('type') != 'free':
-            if jn not in refs['actuator']:
-                bad.append(f'{jn}: no actuator named after joint')
-            for suffix in ('_pos', '_vel', '_trq'):
-                if jn + suffix not in sensor_names:
-                    bad.append(f'{jn}: no sensor {jn}{suffix}')
+    for jn in refs['joint']:
+        if jn not in refs['actuator']:
+            bad.append(f'{jn}: no actuator named after joint')
+        for suffix in ('_pos', '_vel', '_trq'):
+            if jn + suffix not in sensor_names:
+                bad.append(f'{jn}: no sensor {jn}{suffix}')
     return bad
 
 

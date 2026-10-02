@@ -1,8 +1,11 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-  <!-- Resolved at include time relative to this file; no $(find), works from source and install -->
-  <xacro:property name="config_dir" value="${xacro.abs_filename('../../config')}" lazy_eval="false" />
+  <!-- Resolved at include time relative to this file; no $(find), works from source and install.
+       abs_filename() is relative when xacro gets a relative path, so prefix the working directory then. -->
+  <xacro:property name="config_rel" value="${xacro.abs_filename('../../config')}" lazy_eval="false" />
+  <xacro:property name="config_dir" value="${config_rel if config_rel.startswith('/') else '$(cwd)/' + config_rel}"
+    lazy_eval="false" />
 
   <!-- imu_xyz: MJCF imu site pos -->
   <xacro:macro name="gazebo_block" params="robot imu_xyz">

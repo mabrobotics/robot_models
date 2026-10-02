@@ -1,5 +1,5 @@
 --[[
---  hb 5.0 lua model for use with the RBDL library
+--  hb50 lua model for use with the RBDL library
 --]]
 
 -- Inertias
@@ -37,8 +37,9 @@ local l2_i = {
 -- Mass parameters
 local base = { mass = 6.698, com = { 0., 0., 0. }, inertia = base_i }
 local l0f_m = 0.092
-local l0r_m = 0.083 
-local l1_m = 1.784
+local l0r_m = 0.083
+local l1f_m = 1.784
+local l1r_m = 1.785
 local l2_r = { mass = 0.141, com = { 0.000982, -0.103425, 0.002827 }, inertia = l2_i }
 local l2_l = { mass = 0.141, com = { 0.000982, 0.103425, 0.002827 }, inertia = l2_i }
 
@@ -102,26 +103,26 @@ local bodies = {
     base = base,
 
     -- FR — leg 0
-    fr_l0 = { 
+    fr_l0 = {
         mass = l0f_m,
         com = { 0.021234, 0.02611, -0.00004 },
         inertia = l0f_i
     },
-    fr_l1 = { 
-        mass = l1_m,
+    fr_l1 = {
+        mass = l1f_m,
         com = { 0.067316, -0.013171, 0.002548 },
         inertia = l1f_i
     },
     fr_l2 = l2_r,
 
     -- FL
-    fl_l0 = { 
+    fl_l0 = {
         mass = l0f_m,
         com = { 0.021234, -0.02611, 0.00004 },
         inertia = l0f_i
     },
-    fl_l1 = { 
-        mass = l1_m,
+    fl_l1 = {
+        mass = l1f_m,
         com = { 0.067316, 0.013171, 0.002548 },
         inertia = l1f_i
     },
@@ -133,8 +134,8 @@ local bodies = {
         com = { 0.01945, 0.024417, 0. },
         inertia = l0r_i
     },
-    rl_l1 = { 
-        mass = l1_m,
+    rl_l1 = {
+        mass = l1r_m,
         com = { 0.067294, 0.016208, 0.002475 },
         inertia = l1r_i
     },
@@ -146,8 +147,8 @@ local bodies = {
         com = { 0.01945, -0.024417, 0. },
         inertia = l0r_i
     },
-    rr_l1 = { 
-        mass = l1_m,
+    rr_l1 = {
+        mass = l1r_m,
         com = { 0.067294, -0.016208, 0.002475 },
         inertia = l1r_i
     },

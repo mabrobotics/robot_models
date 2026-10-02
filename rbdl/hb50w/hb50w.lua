@@ -103,12 +103,12 @@ local bodies = {
     base = base,
 
     -- FR — leg 0
-    fr_l0 = { 
+    fr_l0 = {
         mass = l0f_m,
         com = { 0.059079, 0.004785, -0.000588 },
         inertia = l0f_i
     },
-    fr_l1 = { 
+    fr_l1 = {
         mass = l1f_m,
         com = { 0.055224, -0.015337, 0.003302 },
         inertia = l1f_i
@@ -116,12 +116,12 @@ local bodies = {
     fr_l2 = l2_r,
 
     -- FL
-    fl_l0 = { 
+    fl_l0 = {
         mass = l0f_m,
         com = { 0.059079, -0.004785, 0.000588 },
         inertia = l0f_i
     },
-    fl_l1 = { 
+    fl_l1 = {
         mass = l1f_m,
         com = { 0.055224, 0.015337, 0.003302 },
         inertia = l1f_i
@@ -134,7 +134,7 @@ local bodies = {
         com = { 0.058684, 0.004487, 0.000600 },
         inertia = l0r_i
     },
-    rl_l1 = { 
+    rl_l1 = {
         mass = l1r_m,
         com = { 0.055591, 0.019865, 0.002679 },
         inertia = l1r_i
@@ -147,7 +147,7 @@ local bodies = {
         com = { 0.058684, -0.004487, -0.000600 },
         inertia = l0r_i
     },
-    rr_l1 = { 
+    rr_l1 = {
         mass = l1r_m,
         com = { 0.055591, -0.019865, 0.002679 },
         inertia = l1r_i

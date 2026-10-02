@@ -16,9 +16,6 @@
   <material name="orange">
     <color rgba="1 0.41 0 1"/>
   </material>
-  <material name="invisible">
-    <color rgba="0 0 0 0.001"/>
-  </material>
   <!-- Root link, free-floating base -->
   <link name="body">
     <inertial>
@@ -35,7 +32,6 @@
       <geometry>
         <box size="0.27 0.178 0.1"/>
       </geometry>
-      <material name="invisible"/>
     </collision>
   </link>
   <!-- L0 : hip abduction link -->
@@ -70,7 +66,6 @@
       <geometry>
         <cylinder length="0.11" radius="0.05"/>
       </geometry>
-      <material name="invisible"/>
     </collision>
   </link>
   <!-- L2 : lower leg -->
@@ -91,22 +86,16 @@
       <geometry>
         <cylinder length="0.0625" radius="0.01"/>
       </geometry>
-      <material name="invisible"/>
     </collision>
     <collision>
       <origin rpy="1.67 0 0.05" xyz="0 -0.1 0.005"/>
       <geometry>
         <cylinder length="0.2" radius="0.015"/>
       </geometry>
-      <material name="invisible"/>
     </collision>
   </link>
   <!-- Foot : massless -->
   <link name="fr_foot">
-    <inertial>
-      <mass value="0"/>
-      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
-    </inertial>
     <visual>
       <geometry>
         <sphere radius="0.021"/>
@@ -115,7 +104,7 @@
     </visual>
     <collision>
       <geometry>
-        <sphere radius="0.02"/>
+        <sphere radius="0.021"/>
       </geometry>
     </collision>
   </link>
@@ -125,24 +114,24 @@
     <child link="fr_l0"/>
     <origin rpy="0 0 0" xyz="0.1375 -0.064 0"/>
     <axis xyz="1 0 0"/>
-    <limit effort="27.0" lower="-1.570796" upper="1.570796" velocity="25.0"/>
-    <dynamics damping="0.1" friction="0.48"/>
+    <limit effort="15.0" lower="-1.570796" upper="1.570796" velocity="59.0"/>
+    <dynamics damping="0.1" friction="0.51"/>
   </joint>
   <joint name="fr_j1" type="revolute">
     <parent link="fr_l0"/>
     <child link="fr_l1"/>
     <origin rpy="0 0 -1.570796" xyz="0.0555 -0.0125 0"/>
     <axis xyz="1 0 0"/>
-    <limit effort="27.0" lower="-1.570796" upper="1.570796" velocity="25.0"/>
-    <dynamics damping="0.1" friction="0.48"/>
+    <limit effort="15.0" lower="-1.570796" upper="1.570796" velocity="59.0"/>
+    <dynamics damping="0.1" friction="0.51"/>
   </joint>
   <joint name="fr_j2" type="revolute">
     <parent link="fr_l1"/>
     <child link="fr_l2"/>
     <origin rpy="2.909001 0 0" xyz="0.0584 -0.2 0"/>
     <axis xyz="1 0 0"/>
-    <limit effort="27.0" lower="-2.53" upper="0" velocity="25.0"/>
-    <dynamics damping="0.1" friction="0.48"/>
+    <limit effort="15.0" lower="-2.53" upper="0" velocity="59.0"/>
+    <dynamics damping="0.1" friction="0.51"/>
   </joint>
   <joint name="fr_jFoot" type="fixed">
     <parent link="fr_l2"/>
@@ -181,7 +170,6 @@
       <geometry>
         <cylinder length="0.11" radius="0.05"/>
       </geometry>
-      <material name="invisible"/>
     </collision>
   </link>
   <!-- L2 : lower leg -->
@@ -202,22 +190,16 @@
       <geometry>
         <cylinder length="0.0625" radius="0.01"/>
       </geometry>
-      <material name="invisible"/>
     </collision>
     <collision>
       <origin rpy="-1.67 0 -0.05" xyz="0 0.1 0.005"/>
       <geometry>
         <cylinder length="0.2" radius="0.015"/>
       </geometry>
-      <material name="invisible"/>
     </collision>
   </link>
   <!-- Foot : massless -->
   <link name="fl_foot">
-    <inertial>
-      <mass value="0"/>
-      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
-    </inertial>
     <visual>
       <geometry>
         <sphere radius="0.021"/>
@@ -226,7 +208,7 @@
     </visual>
     <collision>
       <geometry>
-        <sphere radius="0.02"/>
+        <sphere radius="0.021"/>
       </geometry>
     </collision>
   </link>
@@ -236,24 +218,24 @@
     <child link="fl_l0"/>
     <origin rpy="0 0 0" xyz="0.1375 0.064 0"/>
     <axis xyz="1 0 0"/>
-    <limit effort="27.0" lower="-1.570796" upper="1.570796" velocity="25.0"/>
-    <dynamics damping="0.1" friction="0.48"/>
+    <limit effort="15.0" lower="-1.570796" upper="1.570796" velocity="59.0"/>
+    <dynamics damping="0.1" friction="0.51"/>
   </joint>
   <joint name="fl_j1" type="revolute">
     <parent link="fl_l0"/>
     <child link="fl_l1"/>
     <origin rpy="0 0 1.570796" xyz="0.0555 0.0125 0"/>
     <axis xyz="1 0 0"/>
-    <limit effort="27.0" lower="-1.570796" upper="1.570796" velocity="25.0"/>
-    <dynamics damping="0.1" friction="0.48"/>
+    <limit effort="15.0" lower="-1.570796" upper="1.570796" velocity="59.0"/>
+    <dynamics damping="0.1" friction="0.51"/>
   </joint>
   <joint name="fl_j2" type="revolute">
     <parent link="fl_l1"/>
     <child link="fl_l2"/>
     <origin rpy="-2.909001 0 0" xyz="0.0584 0.2 0"/>
     <axis xyz="1 0 0"/>
-    <limit effort="27.0" lower="0" upper="2.53" velocity="25.0"/>
-    <dynamics damping="0.1" friction="0.48"/>
+    <limit effort="15.0" lower="0" upper="2.53" velocity="59.0"/>
+    <dynamics damping="0.1" friction="0.51"/>
   </joint>
   <joint name="fl_jFoot" type="fixed">
     <parent link="fl_l2"/>
@@ -292,7 +274,6 @@
       <geometry>
         <cylinder length="0.11" radius="0.05"/>
       </geometry>
-      <material name="invisible"/>
     </collision>
   </link>
   <!-- L2 : lower leg -->
@@ -313,22 +294,16 @@
       <geometry>
         <cylinder length="0.0625" radius="0.01"/>
       </geometry>
-      <material name="invisible"/>
     </collision>
     <collision>
       <origin rpy="-1.67 0 -0.05" xyz="0 0.1 0.005"/>
       <geometry>
         <cylinder length="0.2" radius="0.015"/>
       </geometry>
-      <material name="invisible"/>
     </collision>
   </link>
   <!-- Foot : massless -->
   <link name="rl_foot">
-    <inertial>
-      <mass value="0"/>
-      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
-    </inertial>
     <visual>
       <geometry>
         <sphere radius="0.021"/>
@@ -337,7 +312,7 @@
     </visual>
     <collision>
       <geometry>
-        <sphere radius="0.02"/>
+        <sphere radius="0.021"/>
       </geometry>
     </collision>
   </link>
@@ -347,24 +322,24 @@
     <child link="rl_l0"/>
     <origin rpy="0 0 -3.141593" xyz="-0.1375 0.064 0"/>
     <axis xyz="1 0 0"/>
-    <limit effort="27.0" lower="-1.570796" upper="1.570796" velocity="25.0"/>
-    <dynamics damping="0.1" friction="0.48"/>
+    <limit effort="15.0" lower="-1.570796" upper="1.570796" velocity="59.0"/>
+    <dynamics damping="0.1" friction="0.51"/>
   </joint>
   <joint name="rl_j1" type="revolute">
     <parent link="rl_l0"/>
     <child link="rl_l1"/>
     <origin rpy="0 0 -1.570796" xyz="0.0555 -0.0125 0"/>
     <axis xyz="1 0 0"/>
-    <limit effort="27.0" lower="-1.570796" upper="1.570796" velocity="25.0"/>
-    <dynamics damping="0.1" friction="0.48"/>
+    <limit effort="15.0" lower="-1.570796" upper="1.570796" velocity="59.0"/>
+    <dynamics damping="0.1" friction="0.51"/>
   </joint>
   <joint name="rl_j2" type="revolute">
     <parent link="rl_l1"/>
     <child link="rl_l2"/>
     <origin rpy="-2.909001 0 0" xyz="0.0584 0.2 0"/>
     <axis xyz="1 0 0"/>
-    <limit effort="27.0" lower="0" upper="2.53" velocity="25.0"/>
-    <dynamics damping="0.1" friction="0.48"/>
+    <limit effort="15.0" lower="0" upper="2.53" velocity="59.0"/>
+    <dynamics damping="0.1" friction="0.51"/>
   </joint>
   <joint name="rl_jFoot" type="fixed">
     <parent link="rl_l2"/>
@@ -403,7 +378,6 @@
       <geometry>
         <cylinder length="0.11" radius="0.05"/>
       </geometry>
-      <material name="invisible"/>
     </collision>
   </link>
   <!-- L2 : lower leg -->
@@ -424,22 +398,16 @@
       <geometry>
         <cylinder length="0.0625" radius="0.01"/>
       </geometry>
-      <material name="invisible"/>
     </collision>
     <collision>
       <origin rpy="1.67 0 0.05" xyz="0 -0.1 0.005"/>
       <geometry>
         <cylinder length="0.2" radius="0.015"/>
       </geometry>
-      <material name="invisible"/>
     </collision>
   </link>
   <!-- Foot : massless -->
   <link name="rr_foot">
-    <inertial>
-      <mass value="0"/>
-      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
-    </inertial>
     <visual>
       <geometry>
         <sphere radius="0.021"/>
@@ -448,7 +416,7 @@
     </visual>
     <collision>
       <geometry>
-        <sphere radius="0.02"/>
+        <sphere radius="0.021"/>
       </geometry>
     </collision>
   </link>
@@ -458,24 +426,24 @@
     <child link="rr_l0"/>
     <origin rpy="0 0 -3.141593" xyz="-0.1375 -0.064 0"/>
     <axis xyz="1 0 0"/>
-    <limit effort="27.0" lower="-1.570796" upper="1.570796" velocity="25.0"/>
-    <dynamics damping="0.1" friction="0.48"/>
+    <limit effort="15.0" lower="-1.570796" upper="1.570796" velocity="59.0"/>
+    <dynamics damping="0.1" friction="0.51"/>
   </joint>
   <joint name="rr_j1" type="revolute">
     <parent link="rr_l0"/>
     <child link="rr_l1"/>
     <origin rpy="0 0 1.570796" xyz="0.0555 0.0125 0"/>
     <axis xyz="1 0 0"/>
-    <limit effort="27.0" lower="-1.570796" upper="1.570796" velocity="25.0"/>
-    <dynamics damping="0.1" friction="0.48"/>
+    <limit effort="15.0" lower="-1.570796" upper="1.570796" velocity="59.0"/>
+    <dynamics damping="0.1" friction="0.51"/>
   </joint>
   <joint name="rr_j2" type="revolute">
     <parent link="rr_l1"/>
     <child link="rr_l2"/>
     <origin rpy="2.909001 0 0" xyz="0.0584 -0.2 0"/>
     <axis xyz="1 0 0"/>
-    <limit effort="27.0" lower="-2.53" upper="0" velocity="25.0"/>
-    <dynamics damping="0.1" friction="0.48"/>
+    <limit effort="15.0" lower="-2.53" upper="0" velocity="59.0"/>
+    <dynamics damping="0.1" friction="0.51"/>
   </joint>
   <joint name="rr_jFoot" type="fixed">
     <parent link="rr_l2"/>

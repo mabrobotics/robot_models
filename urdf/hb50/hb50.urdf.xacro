@@ -3,6 +3,9 @@
 
   <!-- sim: none | mock | gazebo -->
   <xacro:arg name="sim" default="none" />
+  <xacro:if value="${'$(arg sim)' not in ['none', 'mock', 'gazebo']}">
+    ${xacro.fatal("sim must be none, mock or gazebo, got '$(arg sim)'")}
+  </xacro:if>
 
   <xacro:include filename="../common/_materials.xacro" />
   <xacro:include filename="_hb50_leg_macro.xacro" />
@@ -24,28 +27,24 @@
       <geometry>
         <box size="0.196 0.152 0.124" />
       </geometry>
-      <material name="invisible" />
     </collision>
     <collision>
       <origin xyz="0 -0.064 0" rpy="0 1.570796 0" />
       <geometry>
         <cylinder length="0.282" radius="0.056" />
       </geometry>
-      <material name="invisible" />
     </collision>
     <collision>
       <origin xyz="0 0.064 0" rpy="0 1.570796 0" />
       <geometry>
         <cylinder length="0.282" radius="0.056" />
       </geometry>
-      <material name="invisible" />
     </collision>
     <collision>
       <origin xyz="0.09 0 0.057" />
       <geometry>
         <box size="0.048 0.128 0.048" />
       </geometry>
-      <material name="invisible" />
     </collision>
   </link>
 
@@ -56,7 +55,7 @@
     l0_mesh="hb50_l0f.stl" l0_mass="0.092" l0_ixx="0.000066961" l0_iyy="0.000070869" l0_izz="0.000062385"
     l0_inertial_xyz="0.021234 0.02611 -0.00004" l0_visual_rpy="3.141593 0 0"
     j1_xyz="0.06 0.0385 0" j1_rpy="0 0 -1.570796" j1_lower="-1.570796" j1_upper="1.570796"
-    l1_inertial_xyz="0.067316 -0.013171 0.002548" l1_ixx="0.006065" l1_iyy="0.003514" l1_izz="0.007592"
+    l1_mass="1.784" l1_inertial_xyz="0.067316 -0.013171 0.002548" l1_ixx="0.006065" l1_iyy="0.003514" l1_izz="0.007592"
     l1_visual_rpy="3.141593 0 0" l1_mesh="hb50_l1r.stl"
     l1_collision2_xyz="0.118 -0.134 0.013" l1_collision2_rpy="0.05 0 0"
     j2_xyz="0.11965 -0.22 0" j2_rpy="2.914700 0 0" j2_lower="-2.705260" j2_upper="0"
@@ -73,7 +72,7 @@
     l0_mesh="hb50_l0f.stl" l0_mass="0.092" l0_ixx="0.000066961" l0_iyy="0.000070869" l0_izz="0.000062385"
     l0_inertial_xyz="0.021234 -0.02611 0.00004"
     j1_xyz="0.06 -0.0385 0" j1_rpy="0 0 1.570796" j1_lower="-1.570796" j1_upper="1.570796"
-    l1_inertial_xyz="0.067316 0.013171 0.002548" l1_ixx="0.006065" l1_iyy="0.003514" l1_izz="0.007592"
+    l1_mass="1.784" l1_inertial_xyz="0.067316 0.013171 0.002548" l1_ixx="0.006065" l1_iyy="0.003514" l1_izz="0.007592"
     l1_visual_rpy="0 3.141593 0" l1_mesh="hb50_l1l.stl"
     l1_collision2_xyz="0.118 0.134 0.013" l1_collision2_rpy="-0.05 0 0"
     j2_xyz="0.11965 0.22 0" j2_rpy="-2.914700 0 0" j2_lower="0" j2_upper="2.705260"
@@ -90,7 +89,7 @@
     l0_mesh="hb50_l0r.stl" l0_mass="0.083" l0_ixx="0.000048192" l0_iyy="0.000050964" l0_izz="0.000058424"
     l0_inertial_xyz="0.01945 0.024417 0" l0_visual_rpy="3.141593 0 0"
     j1_xyz="0.06 0.0385 0" j1_rpy="0 0 -1.570796" j1_lower="-3.141593" j1_upper="1.570796"
-    l1_inertial_xyz="0.067294 0.016208 0.002475" l1_ixx="0.005907" l1_iyy="0.003507" l1_izz="0.007445"
+    l1_mass="1.785" l1_inertial_xyz="0.067294 0.016208 0.002475" l1_ixx="0.005907" l1_iyy="0.003507" l1_izz="0.007445"
     l1_visual_rpy="0 3.141593 0" l1_mesh="hb50_l1l.stl"
     l1_collision2_xyz="0.118 0.134 0.013" l1_collision2_rpy="-0.05 0 0"
     j2_xyz="0.11965 0.22 0" j2_rpy="-2.914700 0 0" j2_lower="0" j2_upper="2.705260"
@@ -107,7 +106,7 @@
     l0_mesh="hb50_l0r.stl" l0_mass="0.083" l0_ixx="0.000048192" l0_iyy="0.000050964" l0_izz="0.000058424"
     l0_inertial_xyz="0.01945 -0.024417 0"
     j1_xyz="0.06 -0.0385 0" j1_rpy="0 0 1.570796" j1_lower="-1.570796" j1_upper="3.141593"
-    l1_inertial_xyz="0.067294 -0.016208 0.002475" l1_ixx="0.005907" l1_iyy="0.003507" l1_izz="0.007445"
+    l1_mass="1.785" l1_inertial_xyz="0.067294 -0.016208 0.002475" l1_ixx="0.005907" l1_iyy="0.003507" l1_izz="0.007445"
     l1_visual_rpy="3.141593 0 0" l1_mesh="hb50_l1r.stl"
     l1_collision2_xyz="0.118 -0.134 0.013" l1_collision2_rpy="0.05 0 0"
     j2_xyz="0.11965 -0.22 0" j2_rpy="2.914700 0 0" j2_lower="-2.705260" j2_upper="0"

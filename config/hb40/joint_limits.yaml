@@ -1,18 +1,18 @@
 # Mirror of the xacro joint limits. Keep in sync.
 
 joints:
-  fr_j0: { lower: -1.570796, upper: 1.570796, velocity: 25.0, effort: 27.0 }
-  fr_j1: { lower: -1.570796, upper: 1.570796, velocity: 25.0, effort: 27.0 }
-  fr_j2: { lower: -2.53, upper: 0.0, velocity: 25.0, effort: 27.0 }
+  fr_j0: { lower: -1.570796, upper: 1.570796, velocity: 59.0, effort: 15.0 }
+  fr_j1: { lower: -1.570796, upper: 1.570796, velocity: 59.0, effort: 15.0 }
+  fr_j2: { lower: -2.53, upper: 0.0, velocity: 59.0, effort: 15.0 }
 
-  fl_j0: { lower: -1.570796, upper: 1.570796, velocity: 25.0, effort: 27.0 }
-  fl_j1: { lower: -1.570796, upper: 1.570796, velocity: 25.0, effort: 27.0 }
-  fl_j2: { lower: 0.0, upper: 2.53, velocity: 25.0, effort: 27.0 }
+  fl_j0: { lower: -1.570796, upper: 1.570796, velocity: 59.0, effort: 15.0 }
+  fl_j1: { lower: -1.570796, upper: 1.570796, velocity: 59.0, effort: 15.0 }
+  fl_j2: { lower: 0.0, upper: 2.53, velocity: 59.0, effort: 15.0 }
 
-  rl_j0: { lower: -1.570796, upper: 1.570796, velocity: 25.0, effort: 27.0 }
-  rl_j1: { lower: -1.570796, upper: 1.570796, velocity: 25.0, effort: 27.0 }
-  rl_j2: { lower: 0.0, upper: 2.53, velocity: 25.0, effort: 27.0 }
+  rl_j0: { lower: -1.570796, upper: 1.570796, velocity: 59.0, effort: 15.0 }
+  rl_j1: { lower: -1.570796, upper: 1.570796, velocity: 59.0, effort: 15.0 }
+  rl_j2: { lower: 0.0, upper: 2.53, velocity: 59.0, effort: 15.0 }
 
-  rr_j0: { lower: -1.570796, upper: 1.570796, velocity: 25.0, effort: 27.0 }
-  rr_j1: { lower: -1.570796, upper: 1.570796, velocity: 25.0, effort: 27.0 }
-  rr_j2: { lower: -2.53, upper: 0.0, velocity: 25.0, effort: 27.0 }
+  rr_j0: { lower: -1.570796, upper: 1.570796, velocity: 59.0, effort: 15.0 }
+  rr_j1: { lower: -1.570796, upper: 1.570796, velocity: 59.0, effort: 15.0 }
+  rr_j2: { lower: -2.53, upper: 0.0, velocity: 59.0, effort: 15.0 }

@@ -10,7 +10,7 @@
       l0_mesh l0_mass l0_ixx l0_iyy l0_izz
       l0_inertial_xyz l0_visual_rpy:='0 0 0'
       j1_xyz j1_rpy j1_lower j1_upper
-      l1_inertial_xyz l1_ixx l1_iyy l1_izz l1_visual_rpy l1_mesh
+      l1_mass l1_inertial_xyz l1_ixx l1_iyy l1_izz l1_visual_rpy l1_mesh
       l1_collision2_xyz l1_collision2_rpy
       j2_xyz j2_rpy j2_lower j2_upper
       l2_inertial_xyz l2_visual_rpy l2_mesh
@@ -39,7 +39,7 @@
     <link name="${prefix}_l1">
       <inertial>
         <origin xyz="${l1_inertial_xyz}" />
-        <mass value="1.784" />
+        <mass value="${l1_mass}" />
         <inertia ixx="${l1_ixx}" ixy="0" ixz="0" iyy="${l1_iyy}" iyz="0" izz="${l1_izz}" />
       </inertial>
       <visual>
@@ -54,14 +54,12 @@
         <geometry>
           <cylinder length="0.132" radius="0.051" />
         </geometry>
-        <material name="invisible" />
       </collision>
       <collision>
         <origin xyz="${l1_collision2_xyz}" rpy="${l1_collision2_rpy}" />
         <geometry>
           <box size="0.028 0.22 0.052" />
         </geometry>
-        <material name="invisible" />
       </collision>
     </link>
 
@@ -84,23 +82,17 @@
         <geometry>
           <cylinder length="0.06" radius="0.012" />
         </geometry>
-        <material name="invisible" />
       </collision>
       <collision>
         <origin xyz="${l2_collision2_xyz}" rpy="${l2_collision2_rpy}" />
         <geometry>
           <cylinder length="0.196" radius="0.016" />
         </geometry>
-        <material name="invisible" />
       </collision>
     </link>
 
     <!-- Foot : massless -->
     <link name="${prefix}_foot">
-      <inertial>
-        <mass value="0" />
-        <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0" />
-      </inertial>
       <visual>
         <geometry>
           <sphere radius="0.021" />
@@ -120,7 +112,7 @@
       <child link="${prefix}_l0" />
       <origin xyz="${j0_xyz}" rpy="${j0_rpy}" />
       <axis xyz="1 0 0" />
-      <limit effort="16.0" lower="${j0_lower}" upper="${j0_upper}" velocity="25.0" />
+      <limit effort="24.0" lower="${j0_lower}" upper="${j0_upper}" velocity="20.0" />
       <dynamics damping="0.1" friction="0.48" />
     </joint>
 
@@ -129,7 +121,7 @@
       <child link="${prefix}_l1" />
       <origin xyz="${j1_xyz}" rpy="${j1_rpy}" />
       <axis xyz="1 0 0" />
-      <limit effort="16.0" lower="${j1_lower}" upper="${j1_upper}" velocity="25.0" />
+      <limit effort="24.0" lower="${j1_lower}" upper="${j1_upper}" velocity="20.0" />
       <dynamics damping="0.1" friction="0.48" />
     </joint>
 
@@ -138,7 +130,7 @@
       <child link="${prefix}_l2" />
       <origin xyz="${j2_xyz}" rpy="${j2_rpy}" />
       <axis xyz="1 0 0" />
-      <limit effort="16.0" lower="${j2_lower}" upper="${j2_upper}" velocity="25.0" />
+      <limit effort="24.0" lower="${j2_lower}" upper="${j2_upper}" velocity="20.0" />
       <dynamics damping="0.1" friction="0.48" />
     </joint>
 

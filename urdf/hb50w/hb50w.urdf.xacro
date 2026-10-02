@@ -3,6 +3,9 @@
 
   <!-- sim: none | mock | gazebo -->
   <xacro:arg name="sim" default="none" />
+  <xacro:if value="${'$(arg sim)' not in ['none', 'mock', 'gazebo']}">
+    ${xacro.fatal("sim must be none, mock or gazebo, got '$(arg sim)'")}
+  </xacro:if>
 
   <xacro:include filename="../common/_materials.xacro" />
   <xacro:include filename="_hb50w_leg_macro.xacro" />
@@ -24,28 +27,24 @@
       <geometry>
         <box size="0.196 0.152 0.124" />
       </geometry>
-      <material name="invisible" />
     </collision>
     <collision>
       <origin xyz="0 -0.064 0" rpy="0 1.570796 0" />
       <geometry>
         <cylinder length="0.33" radius="0.056" />
       </geometry>
-      <material name="invisible" />
     </collision>
     <collision>
       <origin xyz="0 0.064 0" rpy="0 1.570796 0" />
       <geometry>
         <cylinder length="0.33" radius="0.056" />
       </geometry>
-      <material name="invisible" />
     </collision>
     <collision>
       <origin xyz="0.09 0 0.057" />
       <geometry>
         <box size="0.048 0.128 0.048" />
       </geometry>
-      <material name="invisible" />
     </collision>
   </link>
 

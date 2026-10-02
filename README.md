@@ -1,6 +1,6 @@
 # robot_models
 
-Robot models of the MAB Robotics Honey Badger quadrupeds, in one ROS 2 package:
+Robot models of the [MAB Robotics](https://www.mabrobotics.pl/) Honey Badger quadrupeds, in one ROS 2 package:
 
 - xacro / URDF for ROS 2, RViz and Gazebo Sim (with ros2_control)
 - MuJoCo MJCF with flat, ramp and room scenes
@@ -12,8 +12,8 @@ Robot documentation: <https://mabrobotics.github.io/hb-docs/intro.html>
 
 | Robot   | Type               | Actuated joints    | Mass     |
 |---------|--------------------|--------------------|----------|
-| `hb40`  | quadruped          | 12                 | 12.60 kg |
-| `hb50`  | quadruped          | 12                 | 14.75 kg |
+| [`hb40`](https://www.mabrobotics.pl/honey-badger)  | quadruped          | 12                 | 12.60 kg |
+| [`hb50`](https://www.mabrobotics.pl/honey-badger-5)  | quadruped          | 12                 | 14.75 kg |
 | `hb50w` | wheeled quadruped  | 16 (12 + 4 wheels) | 25.46 kg |
 
 ## Installation
@@ -26,9 +26,6 @@ rosdep install --from-paths src --ignore-src -y
 colcon build --packages-select robot_models
 source install/setup.bash
 ```
-
-The plain URDFs (`urdf/<robot>/<robot>.urdf`) and the MJCF files can also be
-used straight from the repository, without building.
 
 ## Usage
 
@@ -60,16 +57,19 @@ starts:
 
 ```
 pip install mujoco
-python3 -m mujoco.viewer --mjcf mujoco/hb50/hb50.xml
+python3 -m mujoco.viewer --mjcf mujoco/hb50/scene.xml
 ```
 
-Each robot file includes `mujoco/scenes/scene_flat.xml`; change that
-`<include>` to `scene_ramp.xml` or `scene_room.xml` for the other scenes.
+The MJCF follows the [MuJoCo Menagerie](https://github.com/google-deepmind/mujoco_menagerie)
+standards. `mujoco/<robot>/<robot>.xml` is the robot alone. `scene.xml` adds a flat floor;
+`scene_ramp.xml` and `scene_room.xml` combine the robot with the terrains in
+`mujoco/scenes/`, which all robots share. The `home` keyframe is the standing
+pose.
 
-Actuators are torque `motor`s named after their joint (`ctrl` = joint torque /
-`gear`). Sensors: `<joint>_pos`, `<joint>_vel` and `<joint>_trq` for every
-joint, plus `torso-orientation`, `torso-angular-velocity`,
-`torso-linear-acceleration` and `torso-magnetometer` on the `imu` site.
+Actuators are torque `motor`s named after their joint. Sensors: `<joint>_pos`, `<joint>_vel` and
+`<joint>_trq` for every joint, plus `torso-orientation`,
+`torso-angular-velocity`, `torso-linear-acceleration` and `torso-magnetometer`
+on the `imu` site.
 
 ### RBDL
 
@@ -78,12 +78,16 @@ joint, plus `torso-orientation`, `torso-angular-velocity`,
 that moves it (`fr_j0`, `fr_j1`, ...), and `<leg>_foot` is a fixed frame at
 the foot (at the wheel centre for hb50w).
 
-### Isaac Lab
+### Isaac Sim / Isaac Lab
 
-Convert `urdf/hb50/hb50.urdf` to `usd/hb50/hb50.usd` with Isaac Lab's URDF
-converter (`scripts/tools/convert_urdf.py` in the Isaac Lab repository), then
-use `HB50_CFG` from `usd/hb50/isaaclab/hb50_cfg.py`. The joint armature, which
-URDF cannot express, is set there.
+Convert the URDF to USD with Isaac Sim's
+[URDF Importer](https://docs.isaacsim.omniverse.nvidia.com/latest/importer_exporter/ext_isaacsim_asset_importer_urdf.html).
+This package provides:
+
+- `urdf/hb50/hb50.urdf`: the URDF to convert
+- `usd/hb50/isaaclab/hb50_cfg.py`: an Isaac Lab articulation config
+  (`HB50_CFG`) that loads the converted model from `usd/hb50/hb50.usd` and sets
+  the joint armature, which URDF cannot express
 
 ## Model conventions
 
@@ -103,56 +107,76 @@ URDF cannot express, is set there.
 - `gazebo`: adds a ros2_control block with `gz_ros2_control`, the Gazebo
   plugins and an IMU sensor
 
+Any other value stops xacro with an error.
+
 ## Repository layout
 
+`<robot>` is `hb40`, `hb50` or `hb50w`.
+
 ```
-urdf/<robot>/      <robot>.urdf.xacro, leg macro, generated <robot>.urdf
-urdf/common/       materials, ros2_control and Gazebo macros
-meshes/<robot>/    visual STLs
-mujoco/<robot>/    MJCF
-mujoco/scenes/     scene_flat, scene_ramp, scene_room
-mujoco/planes/     height maps for the ramp and room scenes
-rbdl/<robot>/      RBDL Lua model
-config/<robot>/    ros2_control.yaml, joint_limits.yaml
-usd/hb50/          Isaac Lab config
-launch/            view.launch.py (RViz), gazebo.launch.py
-rviz/              view.rviz
-scripts/           generate_urdf.sh
-test/              consistency tests
+robot_models
+│
+└───urdf
+│   └───common          shared xacro macros: materials, ros2_control, Gazebo
+│   └───<robot>         xacro robot description and the generated plain URDF
+│
+└───meshes
+│   └───<robot>/visual  visual STL meshes
+│
+└───mujoco
+│   └───scenes          ramp and room terrains shared by all robots
+│   └───planes          height maps for the terrains
+│   └───<robot>         MJCF robot model and its scenes
+│
+└───rbdl
+│   └───<robot>         RBDL Lua model
+│
+└───config
+│   └───<robot>         ros2_control and joint limit configs
+│
+└───usd
+│   └───hb50            Isaac Lab articulation config
+│
+└───launch              RViz and Gazebo Sim launch files
+└───rviz                RViz config
+└───scripts             URDF generation script
+└───test                consistency tests
 ```
 
 ## Development
 
 The MJCF is the numeric reference. When you change a model, update the MJCF,
-the xacro and the Lua model together, then regenerate the plain URDFs and run
-the tests:
+the xacro, the Lua model and `config/<robot>/joint_limits.yaml` together, then
+regenerate the plain URDFs and run the tests:
 
 ```
 scripts/generate_urdf.sh
 python3 -m pytest test/
 ```
 
-`generate_urdf.sh` needs `xacro`; commit the regenerated `.urdf` files. The
-tests do not need the package to be built or sourced. They check:
+Commit the regenerated `.urdf` files. Both the script and the tests need `xacro`
+on `PATH`; the tests do not need the package to be built or sourced. They check:
 
 - URDF vs MJCF: inertials, joint frames, axes, limits and effort, visual and
   collision geometry, the Gazebo IMU pose against the MJCF `imu` site, and the
-  actuator and sensor names listed above
+  `<joint>`, `<joint>_pos`, `<joint>_vel` and `<joint>_trq` names
 - URDF vs RBDL: inertials, joint frames and axes, total mass (skipped without
   `lua5.1`)
 - `config/<robot>/*.yaml` joint names and limits vs URDF
 - that every xacro variant expands and the committed URDFs are up to date
+- that every MuJoCo scene runs without warnings under random controls, and the
+  `home` keyframe stands on the floor (skipped without the `mujoco` Python
+  package)
+- that each `mujoco/<robot>/` folder has its README, CHANGELOG, LICENSE and
+  preview image, and the mesh paths its README describes
 
 `colcon test --packages-select robot_models` runs the same tests plus the ament
 linters.
 
 ## Known limitations
 
-- The hb50w RBDL model has no wheel bodies, so it is 0.94 kg lighter than the
-  URDF and MJCF (24.52 kg vs 25.46 kg).
-- Collision geometry uses primitives; there are no collision meshes.
-- The Isaac Lab config exists for hb50 only, and its default pose and PD gains
-  are placeholders.
+- The Isaac Lab config exists for hb50 only, and its default pose is a
+  placeholder.
 - `config/<robot>/joint_limits.yaml` lists the URDF joint limits for reference;
   the launch files do not load it.
 - robot_state_publisher warns that the root link `body` has an inertia (a KDL

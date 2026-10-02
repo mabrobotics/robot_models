@@ -1,0 +1,4 @@
+<mujoco model="hb50w ramp scene">
+  <include file="hb50w.xml"/>
+  <include file="../scenes/ramp.xml"/>
+</mujoco>

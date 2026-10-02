@@ -19,16 +19,8 @@ def generate_launch_description():
     )
 
     robot_description = {
-        # value_type=str: skip YAML parsing of the URDF
         'robot_description': ParameterValue(
-            Command(
-                [
-                    'xacro ',
-                    xacro_path,
-                    '.urdf.xacro',
-                    ' use_ros2_control:=false',
-                ]
-            ),
+            Command(['xacro ', xacro_path, '.urdf.xacro']),
             value_type=str,
         )
     }

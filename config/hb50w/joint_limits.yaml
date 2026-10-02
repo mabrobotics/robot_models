@@ -1,23 +1,23 @@
 # Mirror of the xacro joint limits. Keep in sync.
 
 joints:
-  fr_j0: { lower: -1.047198, upper: 1.570796, velocity: 25.0, effort: 16.0 }
-  fr_j1: { lower: -1.570796, upper: 1.570796, velocity: 25.0, effort: 16.0 }
-  fr_j2: { lower: -2.705260, upper: 0.0,      velocity: 25.0, effort: 16.0 }
+  fr_j0: { lower: -1.047198, upper: 1.570796, velocity: 20.0, effort: 24.0 }
+  fr_j1: { lower: -1.570796, upper: 1.570796, velocity: 20.0, effort: 24.0 }
+  fr_j2: { lower: -2.705260, upper: 0.0,      velocity: 20.0, effort: 24.0 }
 
-  fl_j0: { lower: -1.570796, upper: 1.047198, velocity: 25.0, effort: 16.0 }
-  fl_j1: { lower: -1.570796, upper: 1.570796, velocity: 25.0, effort: 16.0 }
-  fl_j2: { lower: 0.0,       upper: 2.705260, velocity: 25.0, effort: 16.0 }
+  fl_j0: { lower: -1.570796, upper: 1.047198, velocity: 20.0, effort: 24.0 }
+  fl_j1: { lower: -1.570796, upper: 1.570796, velocity: 20.0, effort: 24.0 }
+  fl_j2: { lower: 0.0,       upper: 2.705260, velocity: 20.0, effort: 24.0 }
 
-  rl_j0: { lower: -1.047198, upper: 1.570796, velocity: 25.0, effort: 16.0 }
-  rl_j1: { lower: -3.141593, upper: 1.570796, velocity: 25.0, effort: 16.0 }
-  rl_j2: { lower: 0.0,       upper: 2.705260, velocity: 25.0, effort: 16.0 }
+  rl_j0: { lower: -1.047198, upper: 1.570796, velocity: 20.0, effort: 24.0 }
+  rl_j1: { lower: -3.141593, upper: 1.570796, velocity: 20.0, effort: 24.0 }
+  rl_j2: { lower: 0.0,       upper: 2.705260, velocity: 20.0, effort: 24.0 }
 
-  rr_j0: { lower: -1.570796, upper: 1.047198, velocity: 25.0, effort: 16.0 }
-  rr_j1: { lower: -1.570796, upper: 3.141593, velocity: 25.0, effort: 16.0 }
-  rr_j2: { lower: -2.705260, upper: 0.0,      velocity: 25.0, effort: 16.0 }
+  rr_j0: { lower: -1.570796, upper: 1.047198, velocity: 20.0, effort: 24.0 }
+  rr_j1: { lower: -1.570796, upper: 3.141593, velocity: 20.0, effort: 24.0 }
+  rr_j2: { lower: -2.705260, upper: 0.0,      velocity: 20.0, effort: 24.0 }
 
-  fr_j3: { velocity: 25.0, effort: 7.0 }
-  fl_j3: { velocity: 25.0, effort: 7.0 }
-  rl_j3: { velocity: 25.0, effort: 7.0 }
-  rr_j3: { velocity: 25.0, effort: 7.0 }
+  fr_j3: { velocity: 40.0, effort: 7.0 }
+  fl_j3: { velocity: 40.0, effort: 7.0 }
+  rl_j3: { velocity: 40.0, effort: 7.0 }
+  rr_j3: { velocity: 40.0, effort: 7.0 }

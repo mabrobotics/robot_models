@@ -13,8 +13,5 @@
   <material name="orange">
     <color rgba="1 0.41 0 1" />
   </material>
-  <material name="invisible">
-    <color rgba="0 0 0 0.001" />
-  </material>
 
 </robot>
