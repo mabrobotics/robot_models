@@ -177,7 +177,7 @@ on `PATH`; the tests do not need the package to be built or sourced. They check:
   `home` keyframe stands on the floor (skipped without the `mujoco` Python
   package)
 - that each `mujoco/<robot>/` folder has its README, CHANGELOG, LICENSE and
-  preview image, and the mesh paths its README describes
+  preview image, and the `<compiler>` line and mesh paths its derivation steps change
 
 `colcon test --packages-select robot_models` runs the same tests plus the ament
 linters.
