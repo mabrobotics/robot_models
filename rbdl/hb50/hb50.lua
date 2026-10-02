@@ -35,11 +35,11 @@ local l2_i = {
 }
 
 -- Mass parameters
-local base = { mass = 6.698, com = { 0., 0., 0. }, inertia = base_i }
-local l0f_m = 0.092
-local l0r_m = 0.083
-local l1f_m = 1.784
-local l1r_m = 1.785
+local base = { mass = 7.812, com = { 0., 0., 0. }, inertia = base_i }
+local l0f_m = 0.107
+local l0r_m = 0.097
+local l1f_m = 2.081
+local l1r_m = 2.082
 local l2_r = { mass = 0.141, com = { 0.000982, -0.103425, 0.002827 }, inertia = l2_i }
 local l2_l = { mass = 0.141, com = { 0.000982, 0.103425, 0.002827 }, inertia = l2_i }
 

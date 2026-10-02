@@ -11,7 +11,7 @@ Forthcoming
 * MJCF actuators take ``ctrl`` in N·m and ``<joint>_trq`` reports joint torque;
   damping and friction no longer act on the floating base.
 * Joint limits, armature and friction from the drive configs and datasheets;
-  hb50 rear thigh mass and hb40 foot collision corrected.
+  hb50 link masses and hb40 foot collision corrected.
 * URDF cleanup: no zero-mass foot inertials or collision materials, invalid
   ``sim`` values rejected.
 * Isaac Lab config updated to the Isaac Lab 3.0 API.

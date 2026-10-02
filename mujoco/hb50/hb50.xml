@@ -32,7 +32,7 @@
   <worldbody>
     <body name="body" pos="0 0 0.2" childclass="hb50">
       <site name="imu" pos="0.069301 0 0"/>
-      <inertial pos="0 0 0" mass="6.698" diaginertia="0.034280 0.053850 0.073590"/>
+      <inertial pos="0 0 0" mass="7.812" diaginertia="0.034280 0.053850 0.073590"/>
       <freejoint name="root"/>
       <geom mesh="body" material="silver" class="visual"/>
       <geom type="box" size="0.098 0.076 0.062" pos="0 0 -0.002" class="collision"/>
@@ -40,11 +40,11 @@
       <geom type="cylinder" size="0.056 0.141" pos="0 -0.064 0" euler="0 1.570796 0" class="collision"/>
       <geom type="box" size="0.024 0.064 0.024" pos="0.09 0 0.057" class="collision"/>
       <body name="fr_l0" pos="0.1405 -0.064 0">
-        <inertial pos="0.021234 0.02611 -0.00004" mass="0.092" diaginertia="0.000066961 0.000070869 0.000062385"/>
+        <inertial pos="0.021234 0.02611 -0.00004" mass="0.107" diaginertia="0.000066961 0.000070869 0.000062385"/>
         <joint name="fr_j0" class="drive" range="-1.047198 1.570796"/>
         <geom quat="0 1 0 0" mesh="l0f" material="silver" class="visual"/>
         <body name="fr_l1" pos="0.06 0.0385 0" quat="0.707107 0 0 -0.707107">
-          <inertial pos="0.067316 -0.013171 0.002548" mass="1.784" diaginertia="0.006065 0.003514 0.007592"/>
+          <inertial pos="0.067316 -0.013171 0.002548" mass="2.081" diaginertia="0.006065 0.003514 0.007592"/>
           <joint name="fr_j1" class="drive" range="-1.570796 1.570796"/>
           <geom quat="0 1 0 0" mesh="l1r" material="silver" class="visual"/>
           <geom type="cylinder" size="0.051 0.066" pos="0.066 0 0" euler="0 1.570796 0" class="collision"/>
@@ -61,11 +61,11 @@
         </body>
       </body>
       <body name="fl_l0" pos="0.1405 0.064 0">
-        <inertial pos="0.021234 -0.02611 0.00004" mass="0.092" diaginertia="0.000066961 0.000070869 0.000062385"/>
+        <inertial pos="0.021234 -0.02611 0.00004" mass="0.107" diaginertia="0.000066961 0.000070869 0.000062385"/>
         <joint name="fl_j0" class="drive" range="-1.570796 1.047198"/>
         <geom mesh="l0f" material="silver" class="visual"/>
         <body name="fl_l1" pos="0.06 -0.0385 0" quat="0.707107 0 0 0.707107">
-          <inertial pos="0.067316 0.013171 0.002548" mass="1.784" diaginertia="0.006065 0.003514 0.007592"/>
+          <inertial pos="0.067316 0.013171 0.002548" mass="2.081" diaginertia="0.006065 0.003514 0.007592"/>
           <joint name="fl_j1" class="drive" range="-1.570796 1.570796"/>
           <geom quat="0 0 1 0" mesh="l1l" material="silver" class="visual"/>
           <geom type="cylinder" size="0.051 0.066" pos="0.066 0 0" euler="0 1.570796 0" class="collision"/>
@@ -82,11 +82,11 @@
         </body>
       </body>
       <body name="rl_l0" pos="-0.1405 0.064 0" quat="0 0 0 -1">
-        <inertial pos="0.01945 0.024417 0" mass="0.083" diaginertia="0.000048192 0.000050964 0.000058424"/>
+        <inertial pos="0.01945 0.024417 0" mass="0.097" diaginertia="0.000048192 0.000050964 0.000058424"/>
         <joint name="rl_j0" class="drive" range="-1.047198 1.570796"/>
         <geom quat="0 1 0 0" mesh="l0r" material="silver" class="visual"/>
         <body name="rl_l1" pos="0.06 0.0385 0" quat="0.707107 0 0 -0.707107">
-          <inertial pos="0.067294 0.016208 0.002475" mass="1.785" diaginertia="0.005907 0.003507 0.007445"/>
+          <inertial pos="0.067294 0.016208 0.002475" mass="2.082" diaginertia="0.005907 0.003507 0.007445"/>
           <joint name="rl_j1" class="drive" range="-3.141593 1.570796"/>
           <geom quat="0 0 1 0" mesh="l1l" material="silver" class="visual"/>
           <geom type="cylinder" size="0.051 0.066" pos="0.066 0 0" euler="0 1.570796 0" class="collision"/>
@@ -103,11 +103,11 @@
         </body>
       </body>
       <body name="rr_l0" pos="-0.1405 -0.064 0" quat="0 0 0 -1">
-        <inertial pos="0.01945 -0.024417 0" mass="0.083" diaginertia="0.000048192 0.000050964 0.000058424"/>
+        <inertial pos="0.01945 -0.024417 0" mass="0.097" diaginertia="0.000048192 0.000050964 0.000058424"/>
         <joint name="rr_j0" class="drive" range="-1.570796 1.047198"/>
         <geom mesh="l0r" material="silver" class="visual"/>
         <body name="rr_l1" pos="0.06 -0.0385 0" quat="0.707107 0 0 0.707107">
-          <inertial pos="0.067294 -0.016208 0.002475" mass="1.785" diaginertia="0.005907 0.003507 0.007445"/>
+          <inertial pos="0.067294 -0.016208 0.002475" mass="2.082" diaginertia="0.005907 0.003507 0.007445"/>
           <joint name="rr_j1" class="drive" range="-1.570796 3.141593"/>
           <geom quat="0 1 0 0" mesh="l1r" material="silver" class="visual"/>
           <geom type="cylinder" size="0.051 0.066" pos="0.066 0 0" euler="0 1.570796 0" class="collision"/>

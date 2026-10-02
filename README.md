@@ -13,7 +13,7 @@ Robot documentation: <https://mabrobotics.github.io/hb-docs/intro.html>
 | Robot   | Type               | Actuated joints    | Mass     |
 |---------|--------------------|--------------------|----------|
 | [`hb40`](https://www.mabrobotics.pl/honey-badger)  | quadruped          | 12                 | 12.60 kg |
-| [`hb50`](https://www.mabrobotics.pl/honey-badger-5)  | quadruped          | 12                 | 14.75 kg |
+| [`hb50`](https://www.mabrobotics.pl/honey-badger-5)  | quadruped          | 12                 | 17.11 kg |
 | `hb50w` | wheeled quadruped  | 16 (12 + 4 wheels) | 25.46 kg |
 
 ## Installation

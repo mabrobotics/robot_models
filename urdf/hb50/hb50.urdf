@@ -19,7 +19,7 @@
   <!-- Root link, free-floating base -->
   <link name="body">
     <inertial>
-      <mass value="6.698"/>
+      <mass value="7.812"/>
       <inertia ixx="0.034280" ixy="0" ixz="0" iyy="0.053850" iyz="0" izz="0.073590"/>
     </inertial>
     <visual>
@@ -57,7 +57,7 @@
   <link name="fr_l0">
     <inertial>
       <origin xyz="0.021234 0.02611 -0.00004"/>
-      <mass value="0.092"/>
+      <mass value="0.107"/>
       <inertia ixx="6.6961e-05" ixy="0" ixz="0" iyy="7.0869e-05" iyz="0" izz="6.2385e-05"/>
     </inertial>
     <visual>
@@ -72,7 +72,7 @@
   <link name="fr_l1">
     <inertial>
       <origin xyz="0.067316 -0.013171 0.002548"/>
-      <mass value="1.784"/>
+      <mass value="2.081"/>
       <inertia ixx="0.006065" ixy="0" ixz="0" iyy="0.003514" iyz="0" izz="0.007592"/>
     </inertial>
     <visual>
@@ -170,7 +170,7 @@
   <link name="fl_l0">
     <inertial>
       <origin xyz="0.021234 -0.02611 0.00004"/>
-      <mass value="0.092"/>
+      <mass value="0.107"/>
       <inertia ixx="6.6961e-05" ixy="0" ixz="0" iyy="7.0869e-05" iyz="0" izz="6.2385e-05"/>
     </inertial>
     <visual>
@@ -185,7 +185,7 @@
   <link name="fl_l1">
     <inertial>
       <origin xyz="0.067316 0.013171 0.002548"/>
-      <mass value="1.784"/>
+      <mass value="2.081"/>
       <inertia ixx="0.006065" ixy="0" ixz="0" iyy="0.003514" iyz="0" izz="0.007592"/>
     </inertial>
     <visual>
@@ -283,7 +283,7 @@
   <link name="rl_l0">
     <inertial>
       <origin xyz="0.01945 0.024417 0"/>
-      <mass value="0.083"/>
+      <mass value="0.097"/>
       <inertia ixx="4.8192e-05" ixy="0" ixz="0" iyy="5.0964e-05" iyz="0" izz="5.8424e-05"/>
     </inertial>
     <visual>
@@ -298,7 +298,7 @@
   <link name="rl_l1">
     <inertial>
       <origin xyz="0.067294 0.016208 0.002475"/>
-      <mass value="1.785"/>
+      <mass value="2.082"/>
       <inertia ixx="0.005907" ixy="0" ixz="0" iyy="0.003507" iyz="0" izz="0.007445"/>
     </inertial>
     <visual>
@@ -396,7 +396,7 @@
   <link name="rr_l0">
     <inertial>
       <origin xyz="0.01945 -0.024417 0"/>
-      <mass value="0.083"/>
+      <mass value="0.097"/>
       <inertia ixx="4.8192e-05" ixy="0" ixz="0" iyy="5.0964e-05" iyz="0" izz="5.8424e-05"/>
     </inertial>
     <visual>
@@ -411,7 +411,7 @@
   <link name="rr_l1">
     <inertial>
       <origin xyz="0.067294 -0.016208 0.002475"/>
-      <mass value="1.785"/>
+      <mass value="2.082"/>
       <inertia ixx="0.005907" ixy="0" ixz="0" iyy="0.003507" iyz="0" izz="0.007445"/>
     </inertial>
     <visual>
