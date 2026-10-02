@@ -1,5 +1,7 @@
 # robot_models
 
+![Two HB50 robots](media/hb50_robots.jpg)
+
 Robot models of the [MAB Robotics](https://www.mabrobotics.pl/) Honey Badger quadrupeds, in one ROS 2 package:
 
 - xacro / URDF for ROS 2, RViz and Gazebo Sim (with ros2_control)
@@ -15,6 +17,12 @@ Robot documentation: <https://mabrobotics.github.io/hb-docs/intro.html>
 | [`hb40`](https://www.mabrobotics.pl/honey-badger)  | quadruped          | 12                 | 12.60 kg |
 | [`hb50`](https://www.mabrobotics.pl/honey-badger-5)  | quadruped          | 12                 | 17.11 kg |
 | `hb50w` | wheeled quadruped  | 16 (12 + 4 wheels) | 25.46 kg |
+
+The models in MuJoCo:
+
+| hb40 | hb50 | hb50w |
+|:----:|:----:|:-----:|
+| <img src="mujoco/hb40/hb40.png" width="280"> | <img src="mujoco/hb50/hb50.png" width="280"> | <img src="mujoco/hb50w/hb50w.png" width="280"> |
 
 ## Installation
 
@@ -138,6 +146,7 @@ robot_models
 │   └───hb50            Isaac Lab articulation config
 │
 └───launch              RViz and Gazebo Sim launch files
+└───media               README images
 └───rviz                RViz config
 └───scripts             URDF generation script
 └───test                consistency tests
