@@ -2,8 +2,8 @@
 Changelog for package robot_models
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.2.0 (2026-10-02)
+------------------
 * MJCF follows the MuJoCo Menagerie standards: robot-only ``<robot>.xml`` with a
   ``home`` keyframe, ``scene.xml`` per robot, ramp and room scenes on shared
   terrains (``mujoco/scenes/scene_*.xml`` removed), per-robot README, CHANGELOG,
